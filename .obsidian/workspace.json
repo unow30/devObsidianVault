@@ -4,17 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "9a4a5ee9a66b62c1",
+        "id": "e719206536e22675",
         "type": "tabs",
         "children": [
           {
-            "id": "2260920688d84718",
+            "id": "78f62167e41479cf",
             "type": "leaf",
             "state": {
               "type": "diff-view",
               "state": {
-                "file": "무제 파일.md",
-                "staged": false
+                "file": ".obsidian/workspace.json",
+                "staged": true
               }
             }
           }
@@ -150,8 +150,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "2260920688d84718",
+  "active": "78f62167e41479cf",
   "lastOpenFiles": [
+    "README.md",
+    "2024-10-09.md",
     "무제 파일.canvas",
     "무제 파일.md",
     "테스트 1.md",
