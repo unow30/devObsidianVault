@@ -114,6 +114,5 @@ export class AppModule implement NestModule {
 			.forRoutes({path: 'some', method:RequestMethod.GET})
 	}
 }
-
 ``` 
 
