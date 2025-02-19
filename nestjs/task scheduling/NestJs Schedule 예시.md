@@ -1,0 +1,49 @@
+```node
+//선언하기
+
+@Injectable()
+export class TaskService{
+	private readonly logger = new Logger(TaskService.name)
+
+	@Cron('45 * * * * *')
+	 handkeCron(){
+		 this.logger.debug('called when the current second is 45')
+	 }
+}
+
+
+//옵션
+@Injectable()
+export class NoticationService {
+	@Cron('* * 0 * * *', {
+		name:'notications'
+		timezone: 'Europe/Paris'
+	})
+	triggerNoticications(){}
+}
+```
+
+## SchedulerRegistry 함수
+- stop(): 예정된 작업 중지
+- start(): 예정된 작업 재실행
+- setTime(time: CronTime): 작업 중지하고 새로운 주기 지정하고 시작
+- lastDate(): 마지막 작업이 실행된 날짜 반환
+- nextDate(): 다음으로 작업이 실행될 날짜 반환
+- nextDates(count:number): 다음으로 작업이 실행될 날짜들을 n개 반환
+```node
+ // Cron 작업을 코드로 추가하는 예시
+  addCronJob() {
+    const job = new CronJob('0 0 * * * *', () => {
+      console.log('매일 자정에 실행되는 작업');
+    });
+    this.schedulerRegistry.addCronJob('midnight-job', job);
+    job.start();
+  }
+
+  // 등록된 Cron 작업 제거 예시
+  removeCronJob() {
+    const job = this.schedulerRegistry.getCronJob('midnight-job');
+    job.stop();  // 작업을 중지
+    this.schedulerRegistry.deleteCronJob('midnight-job');  // 작업 삭제
+  }
+```

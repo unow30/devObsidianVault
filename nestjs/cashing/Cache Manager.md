@@ -2,6 +2,8 @@
 `pnpm i @nestjs/cache-manager cache-manager`
 
 ## 모듈에 CacheModule 적용
+- 전역모듈 또는 캐싱을  적용할 모듈에 입력한다.
+	- {isGlobal: true:} 전역모듈로 등록한다.
 ```node
 import { CacheModule } from '@nestjs/cache-manager';
 
@@ -44,7 +46,7 @@ async findRecent() {
 ### 2) 캐싱 테스트
 - 응답값을 캐시에 저장한다.
 - 저장된 캐시값이 있다면 바로 불러온다.
-- 서버 재시작 전까지 캐시는 저장된다.
+- TTL 시간이 경과하거나 서버 재시작 전까지 캐시는 저장된다.
 ```node
 import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';  
   
@@ -79,7 +81,7 @@ export class MovieService {
 - 다음 요청: GET /movie/recent 0ms 캐시 가져옴. ms도 많이 줄어듬
 
 ## TTL(Time to Live)
-- 캐시가 얼마나 저장할지 시간을 지정한다.
+- 캐시를 얼마나 오래 저장할지 시간을 지정한다.
 - TTL 0이라면 내용을 지우지 않고 무한히 저장한다.
 - 기본값은
 ```node
@@ -115,9 +117,30 @@ getMovieRecent() {
 console.log('getMoviesRecent() 실행')
   return this.movieService.findRecent();  
 }
+
+
+///service 
+//최신영화 10개만 불러온다.  
+  async findRecent() {  
+    const cacheData = await this.cacheManager.get('MOVIE_RECENT');
+    if(cacheData){
+    console.log('캐시 가져옴')
+	    return cacheData
+    }
+  
+    const data = await this.movieRepository.find({  
+      order: {  
+        createdAt: 'DESC',  
+      },  
+      take: 10,  
+    });  
+
+	await this.cacheManager.set('MOVIE_RECENT', data)
+	return data
+  }
 ```
 - 첫번째 요청
-	getMoviesRecent() 실행 GET /movie/recent 3ms
+	getMoviesRecent() 실행 GET /movie/recent 3ms, 
 - 두번째 요청
 	GET /movie/recent 1ms
 - 3번째 요청
@@ -127,7 +150,8 @@ console.log('getMoviesRecent() 실행')
 - 인터셉터가 지정된 위치에 따라 캐싱이 이루어진다. 컨트롤러 전체를 캐싱할 수도 있다.
 
 ## @CacheKey()
-- 캐시 키값을 변경할 수 있다.
+- 캐시 키를 일괄적으로 지정한다.
+	- url, 쿼리가 변경이 되어도 같은 키로 저장이 된다.
 - @nestjs/cache-manager에서 가져온다.
 - 캐싱이 해당 키에 일괄적으로 저장되므로 url에 지정되지 않는다.
 
@@ -142,7 +166,7 @@ getMovieRecent() {
 }
 ```
 
-## @CacheTTL(1000)
+## @CacheTTL()
 - 캐싱의 TTL을 지정한다. 이전에 지정된 TTL을 덮어씌운다.(override)
 
 ```node
@@ -156,3 +180,6 @@ getMovieRecent() {
   return this.movieService.findRecent();  
 }
 ```
+
+
+
