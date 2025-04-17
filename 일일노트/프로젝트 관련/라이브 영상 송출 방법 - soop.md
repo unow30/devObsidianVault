@@ -1,0 +1,44 @@
+- 라이브 영상 실행시m3u8 자체를 여러개 생성하여 계속 최신 데이터를 보낸다. 라이브 영상 시청시 m3u8 파일에 ts파일이 일부만 담겨있다. 
+### m3u8 다운로드 내용
+```txt
+m3u8 매니페스트를 살펴보면 일부 ts파일이름을 확인할 수 있다.
+이런 m3u8을 지속적으로 다운로드 하고있다.
+
+#EXTM3U
+#EXT-X-MEDIA-SEQUENCE:1593
+#EXT-X-VERSION:3
+#EXT-X-ALLOW-CACHE:NO
+#EXT-X-TARGETDURATION:2
+#EXT-X-FIRST-SEGMENT-TIMESTAMP:6087959353334
+#EXTINF:2.350,
+960x540/283165276-common-hd-hls_1592_0000008800AB009AB6E0C5A95E1079AB.TS
+#EXTINF:2.351,
+960x540/283165276-common-hd-hls_1593_000000540098000155D1C21C1F2C3760.TS
+#EXTINF:2.351,
+960x540/283165276-common-hd-hls_1594_000000A9008B00E417DC2853E08F71A1.TS
+#EXTINF:2.351,
+960x540/283165276-common-hd-hls_1595_0000004800F2002D19EF7398960BFC54.TS
+#EXTINF:2.352,
+960x540/283165276-common-hd-hls_1596_00000010008A00E32E163170DBB3DED5.TS
+#EXTINF:2.351,
+960x540/283165276-common-hd-hls_1597_000000A50081002A9C1B4DA9CE4DBBB0.TS
+
+
+
+```
+
+- 일반 영상 실행시 영상의 해상도별 m3u8 파일을 담은 m3u8파일을 다운로드한다. 기본 해상도에 맞는 m3u8 데이터를 다운받아 실행한다. 해당 m3u8 하나에는 모든 ts파일이 담겨있다.
+```txt
+해상도를 변경할 수 있도록 m3u8파일을 여러개 담고있다.
+
+#EXTM3U
+#EXT-X-VERSION:4
+#EXT-X-STREAM-INF:NAME="hd",BANDWIDTH=1000000,RESOLUTION=960x540,CODECS="avc1.64001F,mp4a.40.2"
+/v102/hls/save/afreeca/station/2025/0416/21/1744806461388422.smil/hd/both/playlist.m3u8 //540p 영상
+#EXT-X-STREAM-INF:NAME="hd4k",BANDWIDTH=4000000,RESOLUTION=1280x720,CODECS="avc1.64001F,mp4a.40.2"
+/v102/hls/save/afreeca/station/2025/0416/21/1744806461388422.smil/hd4k/both/playlist.m3u8 //720p 영상, 기본값임
+#EXT-X-STREAM-INF:NAME="original",BANDWIDTH=8000000,RESOLUTION=1920x1080,CODECS="avc1.640028,mp4a.40.2"
+/v102/hls/save/afreeca/station/2025/0416/21/1744806461388422.smil/original/both/playlist.m3u8 //1024p 영상
+```
+
+### 치지직
