@@ -1,6 +1,17 @@
-<<<<<<< HEAD
-# devObsidianVault
-=======
-# devObsidianVault
 
-### commit push test
+## 과제전형 관련
+[[실시간 배차 시스템 설계]]
+[[노머스 라이브 코딩테스트 예상정답]]
+
+## 포트폴리오 프로젝트 관련
+[[1. HLS(HTTP Live Streaming) 프로토콜]]
+[[2. aws media convert를 이용한 영상파일 변환 로직]]
+[[3. HLS player 구현]]
+[[4.  썸네일 미리보기 기능 구현과정]]
+
+[[라이브 영상 송출 방법 - 치지직]]
+[[라이브 영상 송출 방법 - soop]]
+[[CDN으로 단일 대용량 MP4를 전송하지 않는 이유]]
+
+[[2025-05-14|S3 Presigned URL 파일 업로드: 퍼센트 표시 및 프로토콜 이슈 분석]]
+[[2025-04-28|HTTP Live Streaming (HLS) 파일구조]]
